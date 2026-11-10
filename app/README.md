@@ -6,7 +6,7 @@ A fully offline Flutter reader for `bible.sqlite`, the database built by `../pip
 
 ## Run it on Windows
 
-1. Install Flutter for Windows desktop by following https://docs.flutter.dev/get-started/install/windows/desktop . You need Git for Windows and Visual Studio 2022 (not VS Code) with the "Desktop development with C++" workload. Then run `flutter doctor` in a terminal and fix anything it reports for Windows. Tested here with Flutter 3.47.9.
+1. Install Flutter for Windows desktop by following https://docs.flutter.dev/platform-integration/windows/setup . You need Git for Windows and Visual Studio 2022 (not VS Code) with the "Desktop development with C++" workload. Then run `flutter doctor` in a terminal and fix anything it reports for Windows. Tested here with Flutter 3.47.9.
 2. Copy the whole `bible-study\app` folder to the PC, keeping `app\data\build\bible.sqlite` (445 MB) where it is.
 3. In a terminal (PowerShell or Command Prompt):
 
