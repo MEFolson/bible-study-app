@@ -41,7 +41,7 @@ void main() {
       'engjps and englee use English numbering despite the Hebrew label',
       () {
         expect(bible.scheme(bible.versionByCode['engjps']!), 'KJV');
-        expect(bible.scheme(bible.versionByCode['engmet']!), 'Hebrew');
+        expect(bible.scheme(bible.versionByCode['englee']!), 'KJV');
       },
     );
 

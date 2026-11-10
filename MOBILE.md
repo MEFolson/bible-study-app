@@ -13,7 +13,7 @@ Files in `dist/`:
 | `bible_study_android_armeabi-v7a.apk` | 163973875 (164.0 MB) | older 32 bit phones |
 | `bible_study_android_x86_64.apk` | 168077851 (168.1 MB) | emulators and a few tablets |
 
-Checksums are in `dist/SHA256SUMS_android.txt`. App name: Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.0. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store.
+Checksums are in `dist/SHA256SUMS_android.txt`. App name: Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.0. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store. To sign a release APK with your own keystore, see the signing section in `app/README.md`. Do not commit the keystore or `android/key.properties`.
 
 ### Installing the APK
 

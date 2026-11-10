@@ -113,17 +113,19 @@ class _ReaderScreenState extends State<ReaderScreen>
     }
     if (o.dialog != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (o.dialog == 'books')
+        if (o.dialog == 'books') {
           showDialog(
             context: context,
             builder: (_) =>
                 BookPicker(bible: bible, english: english, current: book),
           );
-        if (o.dialog == 'credits')
+        }
+        if (o.dialog == 'credits') {
           showDialog(
             context: context,
             builder: (_) => CreditsDialog(bible: bible, user: user),
           );
+        }
       });
     }
     if (o.screenshot != null) _scheduleScreenshot(o.screenshot!);
@@ -163,8 +165,9 @@ class _ReaderScreenState extends State<ReaderScreen>
   }
 
   void goTo(Book b, int c, {int? verse}) {
-    if (_scaffold.currentState?.isEndDrawerOpen ?? false)
+    if (_scaffold.currentState?.isEndDrawerOpen ?? false) {
       Navigator.of(context).pop();
+    }
     setState(() {
       book = b;
       chapter = c;
@@ -378,22 +381,25 @@ class _ReaderScreenState extends State<ReaderScreen>
                             onVerseTap: () => setState(() {
                               selectedVerse = rows[i].verse;
                               if (_tabs.index == 0) _tabs.index = 1;
-                              if (narrow)
+                              if (narrow) {
                                 _scaffold.currentState?.openEndDrawer();
+                              }
                             }),
                             onXrefTap: () => setState(() {
                               selectedVerse = rows[i].verse;
                               _tabs.index = 1;
-                              if (narrow)
+                              if (narrow) {
                                 _scaffold.currentState?.openEndDrawer();
+                              }
                             }),
                             onWordTap: (w) => setState(() {
                               selectedWord = w;
                               selectedWordVersion = orig;
                               selectedVerse = rows[i].verse;
                               _tabs.index = 0;
-                              if (narrow)
+                              if (narrow) {
                                 _scaffold.currentState?.openEndDrawer();
+                              }
                             }),
                           ),
                         ),
