@@ -1,0 +1,24 @@
+from pathlib import Path
+APP = Path(__file__).resolve().parent.parent
+DL = APP / "src" / "dl"
+BUILD = APP / "data" / "build"
+EXPECTED = Path(__file__).resolve().parent / "expected"
+TAHOT = sorted(DL.glob("TAHOT_*.txt"))
+TAGNT = sorted(DL.glob("TAGNT_*.txt"))
+TBESH = DL / "tbesh.txt"
+TBESG = DL / "tbesg.txt"
+TVTMS = DL / "tvtms" / "TVTMS.txt"
+XREF = DL / "cross_references.txt"
+STRONGS_HEB = DL / "strongs" / "StrongHebrewG.xml"
+STRONGS_GRK = DL / "strongs" / "strongsgreek.xml"
+EBIBLE = DL / "ebible"
+GRCBRENT = DL / "grc" / "grcbrent_usfm.zip"
+SBLGNT = DL / "sblgnt_repo" / "data" / "sblgnt" / "text"
+BYZ_TEXT = DL / "byz_repo" / "csv-unicode" / "ccat" / "no-variants"
+BYZ_WORDS = DL / "byz_repo" / "csv-unicode" / "strongs" / "with-parsing"
+N1904 = DL / "n1904_repo" / "morph" / "Nestle1904.csv"
+F1K = DL / "f1k_repo" / "data" / "tlg0527"
+SWETE_CORR = DL / "swete_corr_repo" / "texts" / "DONE"
+WLC = DL / "morphhb_repo" / "wlc"
+ELIRAN_WORDS = DL / "swete_words.csv"
+ELIRAN_VERS = DL / "swete_vers.csv"
