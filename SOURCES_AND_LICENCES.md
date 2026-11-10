@@ -2,7 +2,7 @@
 
 The database `bible.sqlite` (published as a release file next to the apps) is built only from the sources below by `pipeline/build.py`. Each source keeps its own licence. The Swete Septuagint text from First1KGreek is CC BY SA 4.0, so the Swete tables as cleaned here are shared under CC BY SA 4.0 too, and this repository holds the code that produced them.
 
-No licence has been chosen yet for the app and pipeline code itself.
+The app and pipeline code written for this project is licensed under the Apache License, Version 2.0 (see `LICENSE` and `NOTICE`; copyright 2026 Matthew Folson). That licence covers the code only. The Bible texts, lexicons, cross references and other data, and the fonts, are under the licences listed below, and the cleaned Swete text stays under CC BY SA 4.0.
 
 ## Changes made to the sources
 

@@ -74,3 +74,9 @@ Empty verse rows are reported as a warning only.
 * Some extended Strong's ids in TAHOT and TAGNT are not in TBESH or TBESG and resolve only to their base number. The report lists them.
 * Some editions have empty verse rows where the translation omits a verse but keeps its number.
 * Non commercial sources (such as the Peshitta) are not implemented in any build.
+
+## Licence
+
+The app and pipeline code written for this project is licensed under the Apache License, Version 2.0: see `LICENSE` and `NOTICE`. Copyright 2026 Matthew Folson.
+
+That licence covers the code only. The Bible texts, lexicons, cross references and other data, and the fonts, keep their own licences as listed in `SOURCES_AND_LICENCES.md` and `LICENSES/`. The cleaned Swete Septuagint text stays under CC BY SA 4.0.

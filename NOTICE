@@ -1,0 +1,6 @@
+Bible Study
+Copyright 2026 Matthew Folson
+
+The app and pipeline code in this repository is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The Apache License covers only this code. The Bible texts, lexicons, cross references and other data, and the fonts, are not covered by it. Each keeps its own licence, listed in SOURCES_AND_LICENCES.md and LICENSES/. The cleaned Swete Septuagint text in the database stays under CC BY SA 4.0.
