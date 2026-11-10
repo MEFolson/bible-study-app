@@ -35,11 +35,8 @@ table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.85em}td,
 <div class="quick" role="group" aria-label="Choose your device">
 <div class="qwrap"><a id="q-android" class="qb go" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M14 30a18 16 0 0 1 36 0zM22 22a2.5 2.5 0 1 0 0.01 0zM42 22a2.5 2.5 0 1 0 0.01 0z"/><path stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M20 12l4 6M44 12l-4 6"/><rect x="14" y="33" width="36" height="22" rx="5" fill="currentColor"/></svg><span class="rec">Recommended for your device</span><span class="big">Android</span><span class="act">Download</span><span class="line">For Android phones and tablets. Tap, then open the file to install.</span></a>
 <a class="more" href="#android" style="text-align:center;margin-top:8px">Step by step help</a></div>
-<!-- WINDOWS_DOWNLOAD (top button): when the ready to run Windows zip exists, replace the div with id q-windows below with:
-<a id="q-windows" class="qb go" href="URL_OF_WINDOWS_ZIP">WINDOWS_ICON<span class="rec">Recommended for your device</span><span class="big">Windows</span><span class="act">Download</span><span class="line">For Windows computers. Save it, unzip it, then open bible_study.</span></a>
-Keep the svg icon from the current div. Also switch on the button in the Windows section further down. -->
-<div class="qwrap"><a id="q-windows" class="qb soon" href="#windows"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="8" y="8" width="22" height="22"/><rect x="34" y="8" width="22" height="22"/><rect x="8" y="34" width="22" height="22"/><rect x="34" y="34" width="22" height="22"/></g></svg><span class="rec">Recommended for your device</span><span class="big">Windows</span><span class="act">Coming soon</span><span class="line">For Windows computers. Not ready to download yet.</span></a>
-<a class="more" href="#windows" style="text-align:center;margin-top:8px">More about Windows</a></div>
+<div class="qwrap"><a id="q-windows" class="qb go" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_windows.zip"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="8" y="8" width="22" height="22"/><rect x="34" y="8" width="22" height="22"/><rect x="8" y="34" width="22" height="22"/><rect x="34" y="34" width="22" height="22"/></g></svg><span class="rec">Recommended for your device</span><span class="big">Windows</span><span class="act">Download</span><span class="line">For Windows computers. Download, unzip, then open bible_study.exe.</span></a>
+<a class="more" href="#windows" style="text-align:center;margin-top:8px">Step by step help</a></div>
 <div class="qwrap"><a id="q-iphone" class="qb soon" href="#iphone"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="18" y="4" width="28" height="56" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="52" r="3" fill="currentColor"/></svg><span class="rec">Recommended for your device</span><span class="big">iPhone</span><span class="act">Coming soon</span><span class="line">For iPhone and iPad. Needs Apple's approval first.</span></a>
 <a class="more" href="#iphone" style="text-align:center;margin-top:8px">More about iPhone</a></div>
 </div>
@@ -70,18 +67,20 @@ if(id){var e=document.getElementById(id);if(e)e.classList.add("mine");}})();
 </section>
 
 <section id="windows"><h2>Windows</h2>
-<!-- WINDOWS_DOWNLOAD: when the ready to run zip is available, replace the note below with a button such as
-<a class="btn" href="URL_OF_ZIP">Download for Windows<small>SIZE MB</small></a> -->
-<div class="note"><strong>The ready to run Windows download is not here yet.</strong> It has to be built on a Windows computer and will be added to this page when it is ready.</div>
-<h3>How to install it once it is here</h3>
+<p>For Windows computers. Built on Windows 11 and checked there to make sure it opens.</p>
+<a class="btn" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_windows.zip">Download for Windows<small>162.4 MB</small></a>
+<h3>How to install</h3>
 <ol>
-<li>Click the Windows download button and save the zip file.</li>
+<li>Make sure you have about 650 MB of free space. The download is 162 MB and the unzipped folder is about 480 MB. You can delete the downloaded zip file afterwards.</li>
+<li>Click <em>Download for Windows</em> and wait for the download to finish. The file is called <code>bible_study_windows.zip</code> and is usually in your <em>Downloads</em> folder.</li>
 <li>Right click the zip file and choose <em>Extract All</em>, then click <em>Extract</em>.</li>
-<li>Open the extracted folder and double click <code>bible_study.exe</code>.</li>
-<li>If Windows shows a blue box saying <em>Windows protected your PC</em>, click <em>More info</em>, then <em>Run anyway</em>. This appears because the app is new and not signed by a publisher Windows knows.</li>
-<li>Keep the whole folder together. The program needs the other files and the <code>data</code> folder next to it, so move or copy the folder, not just the exe. To make a shortcut, right click <code>bible_study.exe</code> and choose <em>Show more options</em>, then <em>Send to</em>, then <em>Desktop (create shortcut)</em>.</li>
+<li>Open the <code>BibleStudy</code> folder that appears.</li>
+<li>Double click <code>bible_study.exe</code>.</li>
+<li>If Windows shows a blue box saying <em>Windows protected your PC</em>, click <em>More info</em>, then click <em>Run anyway</em>. This appears because the app is new and not signed by a publisher Windows knows.</li>
+<li>Keep the whole <code>BibleStudy</code> folder together. The program needs the other files and the <code>data</code> folder next to it, so move or copy the whole folder, not just the program. To make a shortcut, right click <code>bible_study.exe</code> and choose <em>Show more options</em>, then <em>Send to</em>, then <em>Desktop (create shortcut)</em>.</li>
 </ol>
-<details><summary><strong>For developers: build it yourself now</strong></summary>
+<p>The app works fully offline. A short <code>READ ME FIRST.txt</code> inside the folder repeats these steps.</p>
+<details><summary><strong>For developers only: build it yourself</strong></summary>
 <p>This zip has the app source and the database (<a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_source_with_database.zip">download, 158.8 MB</a>). It needs Flutter and Visual Studio 2022 with the <em>Desktop development with C++</em> workload.</p>
 <ol><li>Install Flutter for Windows by following <a href="https://docs.flutter.dev/platform-integration/windows/setup">the Flutter guide</a>, then run <code>flutter doctor</code>.</li>
 <li>Extract the zip and open a terminal in the inner <code>app</code> folder, the one that holds <code>pubspec.yaml</code>.</li>
@@ -97,11 +96,12 @@ if(id){var e=document.getElementById(id);if(e)e.classList.add("mine");}})();
 <section id="files"><h2>Files and checksums</h2>
 <p>Every file is hosted on <a href="https://github.com/MEFolson/bible-study-app/releases/tag/v1.0.0">GitHub</a>. To check a download, compare its SHA256 checksum with the one below. The same list is in <a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
 <table><colgroup><col style="width:38%"><col style="width:22%"><col></colgroup><tr><th>File</th><th>Size</th><th>SHA256</th></tr>
+<tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_windows.zip">bible_study_windows.zip</a><br><small>Windows, ready to run</small></td><td>162.4 MB<br><small>162,362,277 bytes</small></td><td class="hash">e97dd7fec6929628609b2b7b4b3803051b4c736c61eca76f84c8d675000dff5d</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk">bible_study_android.apk</a><br><small>Android, works on any phone</small></td><td>203.4 MB<br><small>203,435,103 bytes</small></td><td class="hash">0db0dd723cd9e1144805028d52cb027fc0c7ca8ffad4a96e9934347a482fa587</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_arm64.apk">bible_study_android_arm64.apk</a><br><small>Android, smaller file for most phones from recent years</small></td><td>166.6 MB<br><small>166,593,759 bytes</small></td><td class="hash">199da92756cc693e4eaff3db0148ed00bec313162ded3b5d6cf059a8133558a1</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_armv7.apk">bible_study_android_armv7.apk</a><br><small>Android, older 32 bit phones</small></td><td>164.0 MB<br><small>163,973,875 bytes</small></td><td class="hash">db066ae10a818b5f84c0fbe4fca9478d5e917be45420c9bf966ea9eab910ee14</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_x86_64.apk">bible_study_android_x86_64.apk</a><br><small>Android, emulators and a few tablets</small></td><td>168.1 MB<br><small>168,077,851 bytes</small></td><td class="hash">968ab623eefeaa69368398104893c3c4dad275c493a6b50bbf17bf0372d07446</td></tr>
-<tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_source_with_database.zip">bible_study_source_with_database.zip</a><br><small>Windows source code with the database</small></td><td>158.8 MB<br><small>158,775,582 bytes</small></td><td class="hash">33a32014dc798077486bcd493b885039db475aaeb09984674f6ed75b4ba25e26</td></tr>
+<tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_source_with_database.zip">bible_study_source_with_database.zip</a><br><small>For developers only: Windows source code with the database</small></td><td>158.8 MB<br><small>158,775,582 bytes</small></td><td class="hash">33a32014dc798077486bcd493b885039db475aaeb09984674f6ed75b4ba25e26</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible.sqlite.gz">bible.sqlite.gz</a><br><small>The full database (gzip)</small></td><td>148.1 MB<br><small>148,128,809 bytes</small></td><td class="hash">798f175d977fe871979a45cf97ad3db7ec2ebbb30d972726cac1184a12b615ba</td></tr>
 </table></section>
 
