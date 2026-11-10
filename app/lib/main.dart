@@ -61,7 +61,10 @@ class PreparingApp extends StatelessWidget {
             builder: (_, s, _) => Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Zagros Bible Study', style: TextStyle(fontSize: 28)),
+                const Text(
+                  'Zagros Bible Study',
+                  style: TextStyle(fontSize: 28),
+                ),
                 const SizedBox(height: 24),
                 if (s.$1 >= 0)
                   LinearProgressIndicator(value: s.$1 == 0 ? null : s.$1),
