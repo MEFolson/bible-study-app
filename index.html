@@ -16,8 +16,41 @@ ol li,ul li{margin:6px 0}code{background:#f1e9dc;padding:1px 5px;border-radius:4
 table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.85em}td,th{overflow-wrap:anywhere;border-top:1px solid var(--line);padding:8px 6px;vertical-align:top;text-align:left}
 .hash{font-family:monospace;word-break:break-all;font-size:.85em}.lic{color:var(--muted)}
 .credits li{margin:10px 0}small{color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:.9em}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 6px}
+@media (max-width:640px){.quick{grid-template-columns:1fr}}
+.qb{display:flex;flex-direction:column;align-items:center;text-align:center;border-radius:16px;padding:20px 14px 16px;border:3px solid transparent;background:var(--card);color:var(--ink);text-decoration:none}
+.qb svg{width:54px;height:54px;margin-bottom:8px}
+.qb .big{font-size:1.45em;font-weight:bold;line-height:1.25}
+.qb .line{font-size:1.05em;margin-top:6px}
+.qb.go{background:#7a3d1d;color:#fff}.qb.go .line{color:#fff}
+.qb.go:hover,.qb.go:focus{background:#5e2d14}
+.qb.soon{background:#ece6dc;color:#4a443c;border-color:#d6cdbf}
+.qb .more{margin-top:10px;font-size:1em;color:inherit;text-decoration:underline}
+.qb .rec{display:none;margin-bottom:8px;background:#fff3c4;color:#3b2a00;border-radius:999px;padding:3px 12px;font-size:.9em;font-weight:bold}
+.qb.mine{border-color:#e0a800;box-shadow:0 0 0 4px #ffe27a}.qb.mine .rec{display:inline-block}
+.qwrap{display:flex;flex-direction:column}.qwrap .qb{flex:1}
+.qb .act{font-size:1.2em;font-weight:bold;margin-top:4px}.btn small{color:#fff;opacity:1}
 </style></head><body><div class="wrap">
 <header><h1>Bible Study</h1><p>Hebrew, Greek and English side by side. Works fully offline once installed.</p>
+<div class="quick" role="group" aria-label="Choose your device">
+<div class="qwrap"><a id="q-android" class="qb go" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M14 30a18 16 0 0 1 36 0zM22 22a2.5 2.5 0 1 0 0.01 0zM42 22a2.5 2.5 0 1 0 0.01 0z"/><path stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M20 12l4 6M44 12l-4 6"/><rect x="14" y="33" width="36" height="22" rx="5" fill="currentColor"/></svg><span class="rec">Recommended for your device</span><span class="big">Android</span><span class="act">Download</span><span class="line">For Android phones and tablets. Tap, then open the file to install.</span></a>
+<a class="more" href="#android" style="text-align:center;margin-top:8px">Step by step help</a></div>
+<!-- WINDOWS_DOWNLOAD (top button): when the ready to run Windows zip exists, replace the div with id q-windows below with:
+<a id="q-windows" class="qb go" href="URL_OF_WINDOWS_ZIP">WINDOWS_ICON<span class="rec">Recommended for your device</span><span class="big">Windows</span><span class="act">Download</span><span class="line">For Windows computers. Save it, unzip it, then open bible_study.</span></a>
+Keep the svg icon from the current div. Also switch on the button in the Windows section further down. -->
+<div class="qwrap"><a id="q-windows" class="qb soon" href="#windows"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="currentColor"><rect x="8" y="8" width="22" height="22"/><rect x="34" y="8" width="22" height="22"/><rect x="8" y="34" width="22" height="22"/><rect x="34" y="34" width="22" height="22"/></g></svg><span class="rec">Recommended for your device</span><span class="big">Windows</span><span class="act">Coming soon</span><span class="line">For Windows computers. Not ready to download yet.</span></a>
+<a class="more" href="#windows" style="text-align:center;margin-top:8px">More about Windows</a></div>
+<div class="qwrap"><a id="q-iphone" class="qb soon" href="#iphone"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="18" y="4" width="28" height="56" rx="6" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="32" cy="52" r="3" fill="currentColor"/></svg><span class="rec">Recommended for your device</span><span class="big">iPhone</span><span class="act">Coming soon</span><span class="line">For iPhone and iPad. Needs Apple's approval first.</span></a>
+<a class="more" href="#iphone" style="text-align:center;margin-top:8px">More about iPhone</a></div>
+</div>
+<script>
+(function(){var u=navigator.userAgent||"",id=null;
+if(/Android/i.test(u))id="q-android";
+else if(/iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))id="q-iphone";
+else if(/Windows/i.test(u))id="q-windows";
+if(id){var e=document.getElementById(id);if(e)e.classList.add("mine");}})();
+</script>
+
 <nav><a href="#android">Android</a><a href="#windows">Windows</a><a href="#iphone">iPhone</a><a href="#files">Files and checksums</a><a href="#credits">Credits</a></nav></header>
 
 <section id="android"><h2>Android</h2>
