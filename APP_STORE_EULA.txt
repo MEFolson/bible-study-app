@@ -27,7 +27,7 @@ You must comply with applicable third party terms when using this app, including
 
 5. Maintenance, support and contact
 
-The developer, not Apple, is solely responsible for any maintenance and support for this app, as required by law. Apple has no obligation to provide maintenance or support. Questions, complaints or claims should be sent through https://github.com/MEFolson/bible-study-app/issues. Developer: Matthew Folson.
+The developer, not Apple, is solely responsible for any maintenance and support for this app, as required by law. Apple has no obligation to provide maintenance or support. Questions, complaints or claims should be sent by email to mfolson@mail.grokbot.com or through https://github.com/MEFolson/bible-study-app/issues. Developer: Matthew Folson.
 
 6. Warranty
 
