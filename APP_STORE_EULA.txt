@@ -1,0 +1,46 @@
+Zagros Bible Study App
+End User Licence Agreement
+
+This agreement is between you and Matthew Folson (the developer) only, not with Apple Inc. or its subsidiaries (Apple). The developer, not Apple, is solely responsible for the Zagros Bible Study App (bundle id com.mfolson.biblestudy) and its content. This agreement does not set usage rules that conflict with the Apple Media Services Terms and Conditions or the Volume Content Terms.
+
+1. Licence to use the app
+
+The developer grants you a personal licence that you may not transfer. You may use this app on Apple branded products that you own or control, as permitted by the Usage Rules in the Apple Media Services Terms and Conditions. Other accounts tied to the purchaser may also use the app through Family Sharing, volume purchasing, or Legacy Contacts. A Custom App Distribution Customer may give a single licence of this free app to more than one end user.
+
+2. The app code
+
+The app and pipeline code written by Matthew Folson is licensed under the Apache License, Version 2.0, which covers that code only.
+
+3. Bundled texts, data and fonts
+
+Bible texts, lexicons, cross references, other data, and fonts bundled in this app keep their own licences and are not licensed under the Apache License. Texts in the public domain are free of restriction, subject only to any notices those sources themselves give, such as name marks.
+
+The Swete Septuagint text in this app is under the Creative Commons Attribution ShareAlike 4.0 International licence (CC BY SA 4.0). Required attribution: Henry Barclay Swete, The Old Testament in Greek according to the Septuagint (1909 to 1930). Digital text by the Open Greek and Latin First1KGreek project, CC BY SA 4.0. Selected books corrected by the LXX-Swete project (https://github.com/sleeptillseven/LXX-Swete), CC BY SA 4.0. The cleaned text in this app (notes, headings and page furniture removed, words split by line end hyphens rejoined, and those corrections applied) is also released under CC BY SA 4.0. Licence: https://creativecommons.org/licenses/by-sa/4.0/
+
+Nothing in this App Store distribution adds restrictions to those bundled texts. You may copy and share them under their own licences, including the Swete Septuagint text under CC BY SA 4.0, and including freely if a text is in the public domain.
+
+Free source, texts, and the full licence list: https://github.com/MEFolson/bible-study-app (see SOURCES_AND_LICENCES.md).
+
+4. Third party terms
+
+You must comply with applicable third party terms when using this app, including any wireless data service agreement that applies to you.
+
+5. Maintenance, support and contact
+
+The developer, not Apple, is solely responsible for any maintenance and support for this app, as required by law. Apple has no obligation to provide maintenance or support. Questions, complaints or claims should be sent through https://github.com/MEFolson/bible-study-app/issues. Developer: Matthew Folson.
+
+6. Warranty
+
+To the maximum extent permitted by applicable law, the developer provides this app with no warranty, express or implied. If this app fails to conform to any warranty that applies and has not been effectively disclaimed, you may notify Apple, and Apple will refund the purchase price for the app (if you paid one). To the maximum extent permitted by applicable law, Apple has no other warranty obligation with respect to this app, and any other claims, losses, liabilities, damages, costs or expenses from a failure to conform to a warranty are the developer's sole responsibility. This agreement does not limit the developer's liability to you beyond what applicable law permits.
+
+7. Product and intellectual property claims
+
+The developer, not Apple, is responsible for addressing any claims by you or any third party relating to this app or your possession or use of it, including product liability claims, claims that the app fails to meet a legal or regulatory requirement, and claims under consumer protection, privacy, or similar law, including in connection with any use of the HealthKit or HomeKit frameworks. If a third party claims that this app, or your possession or use of it, infringes that party's intellectual property rights, the developer, not Apple, is solely responsible for the investigation, defense, settlement and discharge of that claim.
+
+8. Export and legal compliance
+
+You represent and warrant that (i) you are not located in a region that is subject to a U.S. Government embargo, or that has been designated by the U.S. Government as a "terrorist supporting" region; and (ii) you are not listed on any U.S. Government list of prohibited or restricted parties.
+
+9. Apple as a third party beneficiary
+
+You and the developer acknowledge and agree that Apple and Apple's subsidiaries are third party beneficiaries of this agreement, and that upon your acceptance of these terms Apple will have the right (and will be deemed to have accepted the right) to enforce this agreement against you as a third party beneficiary.
