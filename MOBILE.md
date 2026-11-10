@@ -47,10 +47,10 @@ On first launch the database is unpacked into `Library/Application Support/bible
 
 Building happens on GitHub's Mac runners, which are free for public repositories:
 
-* `ci/github-actions/ios-compile-check.yml` builds the app without signing, to prove it compiles. No secrets needed.
-* `ci/github-actions/ios-testflight.yml` builds, signs automatically with an App Store Connect API key, and uploads to TestFlight. It needs the repository secrets listed at the top of the file.
+* `.github/workflows/ios-compile-check.yml` builds the app without signing, to prove it compiles. No secrets needed. The unsigned compile check passed on 10 Nov 2026: https://github.com/MEFolson/bible-study-app/actions/runs/42834139920
+* `.github/workflows/ios-testflight.yml` builds, signs automatically with an App Store Connect API key, and uploads to TestFlight. It needs the repository secrets listed at the top of the file.
 
-Both run only when started by hand from the Actions tab. They have to be moved into `.github/workflows/` first; see `ci/github-actions/README.md`.
+Both run only when started by hand from the Actions tab.
 
 ## Not tested yet
 

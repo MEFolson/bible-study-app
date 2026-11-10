@@ -44,7 +44,7 @@ jobs:
             if [ -z "${!v}" ]; then echo "::error::secret for $v is not set"; missing=1; fi
           done
           exit $missing
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
