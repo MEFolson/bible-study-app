@@ -1,15 +1,25 @@
 # Offline Bible study data pipeline (Milestone 1)
 
-The Windows reader app that opens this database is in `app/`; see `app/README.md` for how to run it. Android and iPhone versions: see `MOBILE.md`.
+The Flutter reader is in `app/` (that is the Flutter project — run `flutter` commands from there). See `app/README.md` for how to run it on Windows, and `MOBILE.md` for Android and iPhone.
 
-This folder turns the raw downloads in `src/dl` into one SQLite file, `data/build/bible.sqlite`, and validates it. Building needs no network access. Only `fetch.py` goes online, and only to download sources that are missing.
+A ready-made `bible.sqlite` is attached to the GitHub release as `bible.sqlite.gz`. To unpack it and prepare Android/iOS builds or `flutter test`:
+
+```
+mkdir -p data/build
+curl -L -o data/build/bible.sqlite.gz \
+  https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible.sqlite.gz
+gzip -dc data/build/bible.sqlite.gz > data/build/bible.sqlite
+cd app && python3 tool/pack_db.py
+```
+
+To rebuild the database from the original sources instead, use the pipeline below. It turns the raw downloads in `src/dl` into one SQLite file, `data/build/bible.sqlite`, and validates it. Building needs no network access. Only `fetch.py` goes online, and only to download sources that are missing.
 
 ## Rebuild
 
 Requirements: Python 3.11 or newer, the `lxml` package, and SQLite with FTS5 (included in the standard Python build).
 
 ```
-cd /workspace/bible-study/app
+# from the repository root
 python3 pipeline/fetch.py          # only if src/dl is missing files; writes src/dl/MANIFEST.json with sha256 hashes and git commits
 python3 pipeline/build.py          # default build: data/build/bible.sqlite plus validation_report.md and .json
 ```

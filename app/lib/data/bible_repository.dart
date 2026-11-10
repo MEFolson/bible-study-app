@@ -287,14 +287,16 @@ class BibleRepository {
     final rows = <int, PassageRow>{};
     PassageRow row(int v) => rows.putIfAbsent(v, () => PassageRow(v));
     textCells(english, book, chapter).forEach((v, c) => row(v).english = c);
-    if (original != null)
+    if (original != null) {
       cells(original, book, chapter).forEach((v, c) => row(v).original = c);
-    if (septuagint != null)
+    }
+    if (septuagint != null) {
       textCells(
         septuagint,
         book,
         chapter,
       ).forEach((v, c) => row(v).septuagint = c);
+    }
     for (final r in db.select(
       'SELECT from_verse, COUNT(*) AS n FROM crossref WHERE from_book = ? AND from_chapter = ? GROUP BY from_verse',
       [book, chapter],

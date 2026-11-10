@@ -42,13 +42,14 @@ class _NotesPanelState extends State<NotesPanel> {
   @override
   Widget build(BuildContext context) {
     final v = widget.verse;
-    if (v == null)
+    if (v == null) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
           child: Text('Tap a verse number to write notes on it.'),
         ),
       );
+    }
     return DefaultTabController(
       length: 2,
       child: Column(

@@ -20,13 +20,14 @@ class CrossRefPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final f = from;
-    if (f == null)
+    if (f == null) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
           child: Text('Tap a verse number to see its cross references.'),
         ),
       );
+    }
     final list = bible.crossRefs(f);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

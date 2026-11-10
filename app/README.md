@@ -2,16 +2,36 @@
 
 A fully offline Flutter reader for `bible.sqlite`, the database built by `../pipeline`. It reads only that local file and never downloads texts. Windows, Android and iPhone are the targets; the Linux build exists only so Hebrew and Greek rendering can be checked on the build box.
 
-**Android and iPhone:** see `../MOBILE.md`. In short: install `../dist/bible_study_android.apk` by opening it on the phone and allowing installs from that source; the first launch takes about a minute while the database is unpacked; an iPhone build needs a Mac and an Apple Developer account, which are parked.
+**Android and iPhone:** see `../MOBILE.md`. In short: install the Android APK from the GitHub release by opening it on the phone and allowing installs from that source; the first launch takes about a minute while the database is unpacked; an iPhone build needs a Mac and an Apple Developer account, which are parked.
+
+The Flutter project is this `app/` folder (the root of a checkout of [MEFolson/bible-study-app](https://github.com/MEFolson/bible-study-app) is one level above it).
+
+## The Bible database (needed for tests and Android / iPhone builds)
+
+`bible.sqlite` is not in git (it is 445 MB). Desktop builds look for it on disk; Android and iPhone builds pack it into the app with `tool/pack_db.py`.
+
+The easiest source is the GitHub release (same file the pipeline produces):
+
+```
+# from the repository root
+mkdir -p data/build
+curl -L -o data/build/bible.sqlite.gz \
+  https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible.sqlite.gz
+gzip -dc data/build/bible.sqlite.gz > data/build/bible.sqlite
+cd app
+python3 tool/pack_db.py
+```
+
+`pack_db.py` writes compressed parts into `app/assets/db/` (gitignored). After that, `flutter test` and `flutter build apk` have what they need. You can also build `data/build/bible.sqlite` yourself with `python3 pipeline/build.py` from the repository root (see the root `README.md`).
 
 ## Run it on Windows
 
 1. Install Flutter for Windows desktop by following https://docs.flutter.dev/platform-integration/windows/setup . You need Git for Windows and Visual Studio 2022 (not VS Code) with the "Desktop development with C++" workload. Then run `flutter doctor` in a terminal and fix anything it reports for Windows. Tested here with Flutter 3.47.9.
-2. Copy the whole `bible-study\app` folder to the PC, keeping `app\data\build\bible.sqlite` (445 MB) where it is.
+2. Clone or copy the repository so that `data\build\bible.sqlite` sits next to the `app` folder (see above). The Flutter project is `app/`, not `app/app`.
 3. In a terminal (PowerShell or Command Prompt):
 
    ```
-   cd bible-study\app\app
+   cd app
    flutter pub get
    flutter run -d windows
    ```
@@ -52,6 +72,24 @@ Notes are written to a separate `user.sqlite` in the app's support folder, under
 * Cross references: each verse shows how many it has. Tap the count or the verse number to list them (OpenBible.info, ordered by votes, with a preview in your English version). Tap one to jump there.
 * Notes stub: two separate tabs, "What the text says" and "Interpretation", saved per verse in user.sqlite. Notes never appear inside the Bible text.
 * Larger and smaller text, settings remembered between runs, and a Sources and licences screen read from the database.
+
+## Signing a release APK
+
+Release builds use the Flutter debug key unless you provide your own keystore. Do not commit a keystore or its passwords.
+
+1. Create a keystore yourself and keep it somewhere that is not this repository (for example `~/keys/bible-study.jks`).
+2. In `android/key.properties` (that path is gitignored) put:
+
+   ```
+   storePassword=...
+   keyPassword=...
+   keyAlias=...
+   storeFile=/absolute/path/to/bible-study.jks
+   ```
+
+3. `flutter build apk --release` will then sign with that key. If `android/key.properties` is missing, the build still succeeds but is signed with the debug key, which is fine for a private APK and not for the Play Store.
+
+`key.properties`, `*.jks` and `*.keystore` are in `.gitignore`.
 
 ## Fonts
 

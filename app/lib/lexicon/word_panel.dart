@@ -87,8 +87,9 @@ class WordPanel extends StatelessWidget {
           ),
           ...() {
             final entries = bible.lookup(id);
-            if (entries.isEmpty)
+            if (entries.isEmpty) {
               return [Text('No lexicon entry for $id.', style: small)];
+            }
             return [
               for (final e in entries)
                 Card(

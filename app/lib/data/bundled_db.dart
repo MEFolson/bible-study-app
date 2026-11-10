@@ -2,9 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
-
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -102,8 +99,9 @@ class BundledDb {
     } finally {
       sink.closeSync();
     }
-    if (written != total)
+    if (written != total) {
       throw StateError('copied $written bytes, expected $total');
+    }
     if (db.existsSync()) db.deleteSync();
     tmp.renameSync(db.path);
     marker.writeAsStringSync(want);

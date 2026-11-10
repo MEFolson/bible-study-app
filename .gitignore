@@ -1,5 +1,10 @@
 __pycache__/
 *.sqlite
 *.sqlite.gz
-src/
+/src/
 data/build/
+
+# Release signing materials — never commit these. See app/README.md.
+key.properties
+*.jks
+*.keystore
