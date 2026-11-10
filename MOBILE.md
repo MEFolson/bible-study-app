@@ -39,11 +39,18 @@ flutter build apk --release --split-per-abi
 
 `tool/pack_db.py` packs `../data/build/bible.sqlite` into 27 compressed parts in `assets/db` (148 MB), which only the Android and iOS builds include. Tools used here: Flutter 3.47.9, Temurin JDK 17 in `/opt/jdk`, Android SDK in `/opt/android-sdk` (platform 36, build tools 36.0.0, plus what the Gradle build fetched itself: platform 35, NDK and CMake).
 
-## iPhone: project ready, no installable build yet
+## iPhone: project ready, builds through GitHub Actions (no Mac needed)
 
-The iOS project is set up in `app/ios`: display name Bible Study, bundle id `com.mfolson.biblestudy`, iOS 15 or newer, and the same bundled database with copy on first launch. On iPhone the unpacked copy goes in the app's Caches folder so it is not sent to iCloud backups; if iOS ever clears it, the app unpacks it again on the next launch.
+The iOS project is set up in `app/ios`: display name Bible Study, bundle id `com.mfolson.biblestudy`, iOS 15 or newer, export compliance key `ITSAppUsesNonExemptEncryption` set to false, a privacy manifest (`Runner/PrivacyInfo.xcprivacy`: no tracking, no data collected, file size and date checks inside the app's own folder, reason C617.1), and an open book app icon.
 
-An installable iPhone build cannot be made on this Linux box. Building iOS apps needs Xcode, which only runs on a Mac (your own Mac or a rented cloud Mac). Putting the app on an iPhone, even just your own, also needs an Apple Developer account for signing, and sharing it with other people needs TestFlight or the App Store. All of that is parked by your decision, so no iOS build was attempted. When you pick it up, the steps on a Mac are `cd app`, `python3 tool/pack_db.py`, `flutter build ipa`, followed by signing in Xcode.
+On first launch the database is unpacked into `Library/Application Support/bibledb` and that folder is marked as excluded from iCloud and computer backups (a small native call in `Runner/AppDelegate.swift`). It is not put in Caches, because Apple's backup guidance says the system purges Caches from time to time, and the app cannot show any text without the database.
+
+Building happens on GitHub's Mac runners, which are free for public repositories:
+
+* `ci/github-actions/ios-compile-check.yml` builds the app without signing, to prove it compiles. No secrets needed.
+* `ci/github-actions/ios-testflight.yml` builds, signs automatically with an App Store Connect API key, and uploads to TestFlight. It needs the repository secrets listed at the top of the file.
+
+Both run only when started by hand from the Actions tab. They have to be moved into `.github/workflows/` first; see `ci/github-actions/README.md`.
 
 ## Not tested yet
 
