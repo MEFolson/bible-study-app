@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bible Study: download</title>
-<meta name="description" content="Bible Study: an offline app with Hebrew, Greek and English side by side. Downloads for Android and Windows.">
+<meta name="description" content="Bible Study: download once, then read Hebrew, Aramaic, Greek and English fully offline, with Strong&#x27;s and cross references.">
 <style>
 :root{--bg:#faf6ef;--card:#fffdf9;--ink:#2e2a24;--muted:#6b6257;--accent:#8a4b2a;--line:#e6dccd}
 *{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,"Times New Roman",serif}
 .wrap{max-width:760px;margin:0 auto;padding:24px 18px 60px}
-header{text-align:center;padding:28px 0 8px}h1{font-size:2.1em;margin:0 0 6px}header p{color:var(--muted);margin:0}
+header{text-align:center;padding:28px 0 8px}h1{font-size:2.1em;margin:0 0 6px}header p{color:var(--muted);margin:0}header p.lead{color:var(--ink);font-size:1.22em;max-width:22em;margin:8px auto 0;line-height:1.45}header p.offline{color:var(--ink);font-size:1.05em;max-width:38em;margin:16px auto 0;line-height:1.5}
 nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 8px}nav a{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none}
 section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:22px 0}
 h2{margin:0 0 8px;color:var(--accent)}h3{margin:18px 0 6px}
@@ -31,7 +31,7 @@ table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.85em}td,
 .qwrap{display:flex;flex-direction:column}.qwrap .qb{flex:1}
 .qb .act{font-size:1.2em;font-weight:bold;margin-top:4px}.btn small{color:#fff;opacity:1}
 </style></head><body><div class="wrap">
-<header><h1>Bible Study</h1><p>Hebrew, Greek and English side by side. Works fully offline once installed.</p>
+<header><h1>Bible Study</h1><p class="lead">Download once. Then you can study fully offline, with no internet needed.</p>
 <div class="quick" role="group" aria-label="Choose your device">
 <div class="qwrap"><a id="q-android" class="qb go" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk"><svg viewBox="0 0 64 64" aria-hidden="true"><path fill="currentColor" d="M14 30a18 16 0 0 1 36 0zM22 22a2.5 2.5 0 1 0 0.01 0zM42 22a2.5 2.5 0 1 0 0.01 0z"/><path stroke="currentColor" stroke-width="3" stroke-linecap="round" d="M20 12l4 6M44 12l-4 6"/><rect x="14" y="33" width="36" height="22" rx="5" fill="currentColor"/></svg><span class="rec">Recommended for your device</span><span class="big">Android</span><span class="act">Download</span><span class="line">For Android phones and tablets. Tap, then open the file to install.</span></a>
 <a class="more" href="#android" style="text-align:center;margin-top:8px">Step by step help</a></div>
@@ -47,8 +47,13 @@ else if(/iPhone|iPad|iPod/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoi
 else if(/Windows/i.test(u))id="q-windows";
 if(id){var e=document.getElementById(id);if(e)e.classList.add("mine");}})();
 </script>
+<p class="offline">Read the original languages on your device: Hebrew with vowel points, Aramaic, and Greek including the Septuagint, plus Strong&#x27;s and cross references for detailed study.</p>
 
 <nav><a href="#android">Android</a><a href="#windows">Windows</a><a href="#iphone">iPhone</a><a href="#files">Files and checksums</a><a href="#credits">Credits</a></nav></header>
+
+<section id="about"><h2>Made for offline study</h2>
+<p>Bible Study keeps the texts on your computer or phone. After you download it once, and after a phone finishes unpacking its database the first time, you do not need to be online. You can read Hebrew with vowel points, Aramaic, and Greek including the Septuagint, side by side with English, and use Strong&#x27;s and cross references for detailed study anywhere.</p>
+</section>
 
 <section id="android"><h2>Android</h2>
 <p>Open this page on your Android phone and tap the button.</p>
