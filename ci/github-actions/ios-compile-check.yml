@@ -1,0 +1,38 @@
+# Manual check that the iOS app compiles. Needs no Apple account and no secrets.
+# The build is not signed, so it cannot be installed; it only proves the code builds.
+name: iOS compile check (no signing)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.9
+          cache: true
+      - name: Show tools
+        run: |
+          xcodebuild -version
+          flutter --version
+      - name: Fetch and pack the database
+        run: .github/scripts/ios_prepare.sh
+      - name: Build iOS app without signing
+        working-directory: app
+        run: flutter build ios --release --no-codesign
+      - name: Check the built app
+        working-directory: app
+        run: |
+          APP=build/ios/iphoneos/Runner.app
+          du -sh "$APP"
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" -c "Print :CFBundleDisplayName" -c "Print :MinimumOSVersion" -c "Print :ITSAppUsesNonExemptEncryption" "$APP/Info.plist"
+          test -f "$APP/PrivacyInfo.xcprivacy"
+          test -f "$APP/Frameworks/App.framework/flutter_assets/assets/db/manifest.json"

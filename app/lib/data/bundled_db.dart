@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -19,13 +20,17 @@ class BundledDb {
   static Future<String> ensure({
     void Function(double done, String message)? progress,
   }) async {
-    // iOS: Library/Caches, so 445 MB that the app can recreate is not sent to iCloud backups (Apple's
-    // storage guidance). If iOS ever clears it, the next launch simply unpacks it again.
-    // Android: the app's private files folder. Notes (user.sqlite) stay in the support folder on both.
+    // iOS: Library/Application Support/bibledb, marked "exclude from backup" (see _excludeFromBackup).
+    // Apple's iCloud backup guidance: Caches is purged by the system and is meant only for data the
+    // app can do without; data the app needs to work but that should not be backed up belongs outside
+    // Caches with isExcludedFromBackup set. The app cannot show any text without this file, so it is
+    // not put in Caches. Android: the app's private files folder (not part of cloud backup rules here).
+    // Notes (user.sqlite) stay in the support folder on both and are backed up normally.
+    final support = await getApplicationSupportDirectory();
     final dir = Platform.isIOS
-        ? await getApplicationCacheDirectory()
-        : await getApplicationSupportDirectory();
-    return unpack(
+        ? Directory('${support.path}${Platform.pathSeparator}bibledb')
+        : support;
+    final path = await unpack(
       manifestJson: await rootBundle.loadString('$_dir/manifest.json'),
       loadPart: (name) async {
         final b = await rootBundle.load('$_dir/$name');
@@ -34,6 +39,20 @@ class BundledDb {
       targetDir: dir,
       progress: progress,
     );
+    if (Platform.isIOS) await _excludeFromBackup(dir.path);
+    return path;
+  }
+
+  static const _storage = MethodChannel('biblestudy/storage');
+
+  /// Sets NSURLIsExcludedFromBackupKey on the database folder (ios/Runner/AppDelegate.swift).
+  /// Runs on every launch because the flag can be lost when files are restored or moved.
+  static Future<void> _excludeFromBackup(String path) async {
+    try {
+      await _storage.invokeMethod<bool>('excludeFromBackup', path);
+    } catch (e) {
+      debugPrint('could not exclude $path from backup: $e');
+    }
   }
 
   /// The copy itself, separate from Flutter assets so it can be tested on the build box.
