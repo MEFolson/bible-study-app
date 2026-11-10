@@ -1,4 +1,4 @@
-# Bible Study reader (Windows, Android, iPhone)
+# Zagros Bible Study reader (Windows, Android, iPhone)
 
 A fully offline Flutter reader for `bible.sqlite`, the database built by `../pipeline`. It reads only that local file and never downloads texts. Windows, Android and iPhone are the targets; the Linux build exists only so Hebrew and Greek rendering can be checked on the build box.
 

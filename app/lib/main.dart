@@ -61,7 +61,7 @@ class PreparingApp extends StatelessWidget {
             builder: (_, s, _) => Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text('Bible Study', style: TextStyle(fontSize: 28)),
+                const Text('Zagros Bible Study', style: TextStyle(fontSize: 28)),
                 const SizedBox(height: 24),
                 if (s.$1 >= 0)
                   LinearProgressIndicator(value: s.$1 == 0 ? null : s.$1),
@@ -98,7 +98,7 @@ class BibleStudyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Bible Study',
+    title: 'Zagros Bible Study',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       colorSchemeSeed: const Color(0xFF6B4E2E),

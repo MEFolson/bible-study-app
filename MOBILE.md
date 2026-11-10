@@ -1,4 +1,4 @@
-# Bible Study on Android and iPhone
+# Zagros Bible Study on Android and iPhone
 
 Both phone versions come from the same Flutter project as the Windows app (`app/`). They are fully offline: the Bible database is packed inside the app and nothing is downloaded.
 
@@ -13,7 +13,7 @@ Files in `dist/`:
 | `bible_study_android_armeabi-v7a.apk` | 163973875 (164.0 MB) | older 32 bit phones |
 | `bible_study_android_x86_64.apk` | 168077851 (168.1 MB) | emulators and a few tablets |
 
-Checksums are in `dist/SHA256SUMS_android.txt`. App name: Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.0. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store. To sign a release APK with your own keystore, see the signing section in `app/README.md`. Do not commit the keystore or `android/key.properties`.
+Checksums are in `dist/SHA256SUMS_android.txt`. App name: Zagros Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.0. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store. To sign a release APK with your own keystore, see the signing section in `app/README.md`. Do not commit the keystore or `android/key.properties`.
 
 ### Installing the APK
 
@@ -41,7 +41,7 @@ flutter build apk --release --split-per-abi
 
 ## iPhone: project ready, builds through GitHub Actions (no Mac needed)
 
-The iOS project is set up in `app/ios`: display name Bible Study, bundle id `com.mfolson.biblestudy`, iOS 15 or newer, export compliance key `ITSAppUsesNonExemptEncryption` set to false, a privacy manifest (`Runner/PrivacyInfo.xcprivacy`: no tracking, no data collected, file size and date checks inside the app's own folder, reason C617.1), and an open book app icon.
+The iOS project is set up in `app/ios`: the home screen name is Zagros Bible (the full name Zagros Bible Study is longer than an iPhone home screen label usually allows), the App Store listing name is Zagros Bible Study App, bundle id `com.mfolson.biblestudy`, iOS 15 or newer, export compliance key `ITSAppUsesNonExemptEncryption` set to false, a privacy manifest (`Runner/PrivacyInfo.xcprivacy`: no tracking, no data collected, file size and date checks inside the app's own folder, reason C617.1), and an open book app icon.
 
 On first launch the database is unpacked into `Library/Application Support/bibledb` and that folder is marked as excluded from iCloud and computer backups (a small native call in `Runner/AppDelegate.swift`). It is not put in Caches, because Apple's backup guidance says the system purges Caches from time to time, and the app cannot show any text without the database.
 
