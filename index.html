@@ -4,7 +4,7 @@
 <meta name="description" content="Bible Study: an offline app with Hebrew, Greek and English side by side. Downloads for Android and Windows.">
 <style>
 :root{--bg:#faf6ef;--card:#fffdf9;--ink:#2e2a24;--muted:#6b6257;--accent:#8a4b2a;--line:#e6dccd}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}html,body{overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Georgia,"Times New Roman",serif}
 .wrap{max-width:760px;margin:0 auto;padding:24px 18px 60px}
 header{text-align:center;padding:28px 0 8px}h1{font-size:2.1em;margin:0 0 6px}header p{color:var(--muted);margin:0}
 nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 8px}nav a{padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);text-decoration:none}
@@ -13,12 +13,28 @@ h2{margin:0 0 8px;color:var(--accent)}h3{margin:18px 0 6px}
 a{color:var(--accent)}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:bold;margin:6px 8px 6px 0}
 .btn small{display:block;font-weight:normal;opacity:.9}.note{background:#f3ebdf;border-radius:10px;padding:12px 14px;margin:12px 0}
 ol li,ul li{margin:6px 0}code{background:#f1e9dc;padding:1px 5px;border-radius:4px;font-size:.9em}
-table{width:100%;border-collapse:collapse;font-size:.85em}td,th{border-top:1px solid var(--line);padding:8px 6px;vertical-align:top;text-align:left}
+table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.85em}td,th{overflow-wrap:anywhere;border-top:1px solid var(--line);padding:8px 6px;vertical-align:top;text-align:left}
 .hash{font-family:monospace;word-break:break-all;font-size:.85em}.lic{color:var(--muted)}
 .credits li{margin:10px 0}small{color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:.9em}
 </style></head><body><div class="wrap">
 <header><h1>Bible Study</h1><p>Hebrew, Greek and English side by side. Works fully offline once installed.</p>
-<nav><a href="#windows">Windows</a><a href="#android">Android</a><a href="#iphone">iPhone</a><a href="#files">Files and checksums</a><a href="#credits">Credits</a></nav></header>
+<nav><a href="#android">Android</a><a href="#windows">Windows</a><a href="#iphone">iPhone</a><a href="#files">Files and checksums</a><a href="#credits">Credits</a></nav></header>
+
+<section id="android"><h2>Android</h2>
+<p>Open this page on your Android phone and tap the button.</p>
+<a class="btn" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk">Download for Android<small>203.4 MB, works on any phone</small></a>
+<p><small>Smaller file for most phones from recent years: <a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_arm64.apk">64 bit version, 166.6 MB</a>. If it will not install, use the main button above.</small></p>
+<h3>How to install</h3>
+<ol>
+<li>Make sure you have about 800 MB free: about 200 MB for the app and 445 MB for its Bible database. Android 7.0 or newer is needed.</li>
+<li>Tap the download button and wait for the download to finish.</li>
+<li>Open the downloaded file (from the notification, or from the <em>Files</em> or <em>Downloads</em> app).</li>
+<li>Android will ask whether to allow installs from this source. Tap <em>Settings</em>, switch on <em>Allow from this source</em> (on some phones it is called <em>Install unknown apps</em>), then go back and tap <em>Install</em>.</li>
+<li>If Play Protect says the app is unknown, choose to install anyway. This happens because the app does not come from the Play Store.</li>
+<li>Open <em>Bible Study</em>. The first time, it unpacks its database, which can take about a minute. A progress bar shows how far it is. After that it opens straight away and never needs the internet.</li>
+</ol>
+<div class="note">This is the first release. It has been tested on a computer but not yet on a phone, so please tell the person who sent you this link if anything goes wrong.</div>
+</section>
 
 <section id="windows"><h2>Windows</h2>
 <!-- WINDOWS_DOWNLOAD: when the ready to run zip is available, replace the note below with a button such as
@@ -41,29 +57,13 @@ table{width:100%;border-collapse:collapse;font-size:.85em}td,th{border-top:1px s
 <p>Full notes are in the README inside the zip.</p></details>
 </section>
 
-<section id="android"><h2>Android</h2>
-<p>Open this page on your Android phone and tap the button.</p>
-<a class="btn" href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk">Download for Android<small>203.4 MB, works on any phone</small></a>
-<p><small>Smaller file for most phones from recent years: <a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_arm64.apk">64 bit version, 166.6 MB</a>. If it will not install, use the main button above.</small></p>
-<h3>How to install</h3>
-<ol>
-<li>Make sure you have about 800 MB free: about 200 MB for the app and 445 MB for its Bible database. Android 7.0 or newer is needed.</li>
-<li>Tap the download button and wait for the download to finish.</li>
-<li>Open the downloaded file (from the notification, or from the <em>Files</em> or <em>Downloads</em> app).</li>
-<li>Android will ask whether to allow installs from this source. Tap <em>Settings</em>, switch on <em>Allow from this source</em> (on some phones it is called <em>Install unknown apps</em>), then go back and tap <em>Install</em>.</li>
-<li>If Play Protect says the app is unknown, choose to install anyway. This happens because the app does not come from the Play Store.</li>
-<li>Open <em>Bible Study</em>. The first time, it unpacks its database, which can take about a minute. A progress bar shows how far it is. After that it opens straight away and never needs the internet.</li>
-</ol>
-<div class="note">This is the first release. It has been tested on a computer but not yet on a phone, so please tell the person who sent you this link if anything goes wrong.</div>
-</section>
-
 <section id="iphone"><h2>iPhone</h2>
 <p><strong>Not available yet.</strong> Apps for iPhone have to be signed through Apple before they can be installed, and that has not been set up yet. An iPhone version is planned for later. There is nothing to download for iPhone today.</p>
 </section>
 
 <section id="files"><h2>Files and checksums</h2>
 <p>Every file is hosted on <a href="https://github.com/MEFolson/bible-study-app/releases/tag/v1.0.0">GitHub</a>. To check a download, compare its SHA256 checksum with the one below. The same list is in <a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/SHA256SUMS.txt">SHA256SUMS.txt</a>.</p>
-<table><tr><th>File</th><th>Size</th><th>SHA256</th></tr>
+<table><colgroup><col style="width:38%"><col style="width:22%"><col></colgroup><tr><th>File</th><th>Size</th><th>SHA256</th></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android.apk">bible_study_android.apk</a><br><small>Android, works on any phone</small></td><td>203.4 MB<br><small>203,435,103 bytes</small></td><td class="hash">0db0dd723cd9e1144805028d52cb027fc0c7ca8ffad4a96e9934347a482fa587</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_arm64.apk">bible_study_android_arm64.apk</a><br><small>Android, smaller file for most phones from recent years</small></td><td>166.6 MB<br><small>166,593,759 bytes</small></td><td class="hash">199da92756cc693e4eaff3db0148ed00bec313162ded3b5d6cf059a8133558a1</td></tr>
 <tr><td><a href="https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible_study_android_armv7.apk">bible_study_android_armv7.apk</a><br><small>Android, older 32 bit phones</small></td><td>164.0 MB<br><small>163,973,875 bytes</small></td><td class="hash">db066ae10a818b5f84c0fbe4fca9478d5e917be45420c9bf966ea9eab910ee14</td></tr>
