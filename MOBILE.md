@@ -8,12 +8,12 @@ Files in `dist/`:
 
 | File | Size (bytes) | For |
 |---|---|---|
-| `bible_study_android.apk` | 203435103 (203.4 MB) | any Android phone (all three processor types in one file). Share this one if unsure. |
-| `bible_study_android_arm64-v8a.apk` | 166593759 (166.6 MB) | almost every phone from the last several years |
-| `bible_study_android_armeabi-v7a.apk` | 163973875 (164.0 MB) | older 32 bit phones |
-| `bible_study_android_x86_64.apk` | 168077851 (168.1 MB) | emulators and a few tablets |
+| `bible_study_android.apk` | 203456547 (203.5 MB) | any Android phone (all three processor types in one file). Share this one if unsure. |
+| `bible_study_android_arm64-v8a.apk` | 166615199 (166.6 MB) | almost every phone from the last several years |
+| `bible_study_android_armeabi-v7a.apk` | 163995319 (164.0 MB) | older 32 bit phones |
+| `bible_study_android_x86_64.apk` | 168099291 (168.1 MB) | emulators and a few tablets |
 
-Checksums are in `dist/SHA256SUMS_android.txt`. App name: Zagros Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.0. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store. To sign a release APK with your own keystore, see the signing section in `app/README.md`. Do not commit the keystore or `android/key.properties`.
+Checksums are in `dist/SHA256SUMS_android.txt`. App name: Zagros Bible Study. Application id: `com.mfolson.biblestudy`. Version 1.0.1. Needs Android 7.0 or newer (minimum SDK 24). The APKs are signed with the standard Flutter debug key, which is fine for passing the file to people directly but not for the Play Store. To sign a release APK with your own keystore, see the signing section in `app/README.md`. Do not commit the keystore or `android/key.properties`.
 
 ### Installing the APK
 
