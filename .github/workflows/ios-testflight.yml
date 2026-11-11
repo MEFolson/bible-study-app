@@ -60,7 +60,7 @@ jobs:
           echo "KEY_PATH=$KEY_PATH" >> "$GITHUB_ENV"
       - name: Prepare the Xcode project
         working-directory: app
-        run: flutter build ios --release --config-only --build-name "${{ inputs.build_name }}" --build-number "${{ github.run_number }}"
+        run: flutter build ios --release --config-only --no-codesign --build-name "${{ inputs.build_name }}" --build-number "${{ github.run_number }}"
       - name: Archive (automatic signing)
         working-directory: app/ios
         run: |
