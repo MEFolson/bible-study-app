@@ -11,6 +11,8 @@ import '../data/models.dart';
 import '../data/user_repository.dart';
 import '../lexicon/word_panel.dart';
 import '../notes/notes_panel.dart';
+import '../search/search_repository.dart';
+import '../search/search_screen.dart';
 import '../settings/credits_dialog.dart';
 import '../settings/launch_options.dart';
 import 'book_picker.dart';
@@ -232,6 +234,15 @@ class _ReaderScreenState extends State<ReaderScreen>
           : null,
       appBar: AppBar(
         titleSpacing: 8,
+        actions: [
+          IconButton(
+            key: const Key('reader.search'),
+            tooltip: 'Search',
+            icon: const Icon(Icons.search),
+            onPressed: _openSearch,
+          ),
+          const SizedBox(width: 4),
+        ],
         title: Row(
           children: [
             IconButton(
@@ -414,6 +425,36 @@ class _ReaderScreenState extends State<ReaderScreen>
         ],
       ),
     );
+  }
+
+  late final SearchRepository _search = SearchRepository(bible);
+
+  /// Opens the search screen and, when a verse is tapped, shows it in the reader in the text
+  /// it was found in.
+  Future<void> _openSearch() async {
+    final hit = await Navigator.of(context).push<SearchHit>(
+      MaterialPageRoute(
+        builder: (_) => SearchScreen(search: _search, initial: english),
+      ),
+    );
+    if (hit == null || !mounted) return;
+    final v = hit.version;
+    if (v.language == 'eng' && v.hasText && v.id != english.id) {
+      english = v;
+      user.set('english', v.code);
+    } else if (hit.book.isOT && otOriginalChoices.contains(v.code)) {
+      otOriginal = v.code;
+      user.set('ot_original', v.code);
+    } else if (hit.book.isNT && ntOriginalChoices.contains(v.code)) {
+      ntOriginal = v.code;
+      user.set('nt_original', v.code);
+    } else if (hit.book.isOT && lxxChoices.contains(v.code)) {
+      showLxx = true;
+      lxxCode = v.code;
+      user.set('show_lxx', '1');
+      user.set('lxx', v.code);
+    }
+    goTo(hit.book, hit.ref.chapter, verse: hit.ref.verse);
   }
 
   void _font(double d) => setState(() {

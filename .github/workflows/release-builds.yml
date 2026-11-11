@@ -1,0 +1,162 @@
+# Manual release builds for Android and Windows. Run it from the Actions tab; it never runs on push.
+# The version comes from app/pubspec.yaml. Both jobs upload their files as workflow artifacts,
+# which are then attached to a GitHub release by hand. Nothing here publishes anything.
+#
+# Android signing uses these repository secrets (the keystore itself is never committed):
+#   ANDROID_KEYSTORE_BASE64    base64 of the release keystore (.jks, PKCS12)
+#   ANDROID_KEYSTORE_PASSWORD  keystore password
+#   ANDROID_KEY_ALIAS          key alias
+#   ANDROID_KEY_PASSWORD       key password
+name: Release builds (Android and Windows)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    steps:
+      - name: Check secrets are set
+        run: |
+          missing=0
+          for v in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            if [ -z "${!v}" ]; then echo "::error::secret for $v is not set"; missing=1; fi
+          done
+          exit $missing
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.9
+          cache: true
+      - name: Fetch, check and pack the database
+        run: .github/scripts/ios_prepare.sh
+      - name: Analyze and test
+        working-directory: app
+        run: |
+          flutter analyze
+          flutter test
+      - name: Write the signing key (removed at the end)
+        working-directory: app/android
+        run: |
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+          chmod 600 "$RUNNER_TEMP/release.jks"
+          {
+            echo "storeFile=$RUNNER_TEMP/release.jks"
+            echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+          } > key.properties
+          chmod 600 key.properties
+      - name: Build the universal APK and the per ABI APKs
+        working-directory: app
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/out"
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk "$RUNNER_TEMP/out/bible_study_android.apk"
+          flutter build apk --release --split-per-abi
+          cp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk "$RUNNER_TEMP/out/bible_study_android_arm64.apk"
+          cp build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk "$RUNNER_TEMP/out/bible_study_android_armv7.apk"
+          cp build/app/outputs/flutter-apk/app-x86_64-release.apk "$RUNNER_TEMP/out/bible_study_android_x86_64.apk"
+      - name: Verify signatures and version codes
+        run: |
+          set -euo pipefail
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          for f in "$RUNNER_TEMP"/out/*.apk; do
+            echo "== $(basename "$f")"
+            "$BT/apksigner" verify --verbose --print-certs "$f" | grep -E "Verified using|Signer #1 certificate DN|Signer #1 certificate SHA-256"
+            if "$BT/apksigner" verify --print-certs "$f" | grep -q "Android Debug"; then
+              echo "::error::$(basename "$f") is signed with the debug key"; exit 1
+            fi
+            "$BT/aapt2" dump badging "$f" | head -1
+          done
+          (cd "$RUNNER_TEMP/out" && sha256sum *.apk)
+      - name: Remove the signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.jks" app/android/key.properties
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: ${{ runner.temp }}/out/*.apk
+          compression-level: 0
+          retention-days: 14
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.9
+          cache: true
+      - name: Fetch, check and pack the database
+        run: |
+          set -euo pipefail
+          mkdir -p data/build
+          curl -fsSL https://github.com/MEFolson/bible-study-app/releases/download/v1.0.0/bible.sqlite.gz | gunzip > data/build/bible.sqlite
+          echo "bc65b8a8c1639e87c3eedecb1feeded48607afcc77a4f023a3d1d4f6358494a5  data/build/bible.sqlite" | sha256sum -c -
+          cd app
+          flutter pub get
+          python tool/pack_db.py
+      - name: Build
+        working-directory: app
+        run: flutter build windows --release
+      - name: Assemble the BibleStudy folder with the Visual C++ runtime
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $rel = "app\build\windows\x64\runner\Release"
+          $out = Join-Path $env:RUNNER_TEMP "pkg\BibleStudy"
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item -Path "$rel\*" -Destination $out -Recurse -Force
+          Copy-Item -LiteralPath "app\windows\packaging\READ ME FIRST.txt" -Destination $out
+          # App local copies of the Visual C++ runtime, from the Visual Studio redistributable
+          # folder (Microsoft allows these files to be redistributed with an application).
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -property installationPath
+          $crt = Get-ChildItem -Path "$vs\VC\Redist\MSVC\*\x64\Microsoft.VC14*.CRT" -Directory | Sort-Object FullName | Select-Object -Last 1
+          if (-not $crt) { throw "Visual C++ redistributable folder not found under $vs" }
+          Write-Host "Runtime from $($crt.FullName)"
+          foreach ($d in "msvcp140.dll", "vcruntime140.dll", "vcruntime140_1.dll") {
+            Copy-Item -LiteralPath (Join-Path $crt.FullName $d) -Destination $out
+          }
+          $exe = Join-Path $out "bible_study.exe"
+          $i = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($exe)
+          "ProductName=$($i.ProductName)"; "FileDescription=$($i.FileDescription)"; "CompanyName=$($i.CompanyName)"
+          "LegalCopyright=$($i.LegalCopyright)"; "ProductVersion=$($i.ProductVersion)"; "FileVersion=$($i.FileVersion)"
+          if ($i.CompanyName -ne "Matthew Folson") { throw "CompanyName is $($i.CompanyName)" }
+          $db = Join-Path $out "data\bible.sqlite"
+          $h = (Get-FileHash -LiteralPath $db -Algorithm SHA256).Hash.ToLower()
+          if ($h -ne "bc65b8a8c1639e87c3eedecb1feeded48607afcc77a4f023a3d1d4f6358494a5") { throw "bible.sqlite hash $h" }
+          Get-ChildItem -LiteralPath $out -Recurse -File | ForEach-Object { "{0,12} {1}" -f $_.Length, $_.FullName.Substring($out.Length) }
+      - name: Zip
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          Set-Location (Join-Path $env:RUNNER_TEMP "pkg")
+          7z a -tzip -mx=9 bible_study_windows.zip BibleStudy | Select-Object -Last 3
+          (Get-FileHash bible_study_windows.zip -Algorithm SHA256).Hash.ToLower()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: ${{ runner.temp }}/pkg/bible_study_windows.zip
+          compression-level: 0
+          retention-days: 14

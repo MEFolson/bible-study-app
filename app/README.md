@@ -71,23 +71,25 @@ Notes are written to a separate `user.sqlite` in the app's support folder, under
 * Tap a Hebrew or Greek word (TAHOT, TAGNT, Byzantine, Nestle 1904) to see its transliteration, word gloss, lemma, morphology and Strong's numbers, with the entry from STEP TBESH or TBESG and from Open Scriptures Strong's. If an extended Strong's id is missing from the STEP lexicon, the panel says so and shows the base number entry. The panel also shows the word exactly as published, with its / and \ morpheme dividers.
 * Cross references: each verse shows how many it has. Tap the count or the verse number to list them (OpenBible.info, ordered by votes, with a preview in your English version). Tap one to jump there.
 * Notes stub: two separate tabs, "What the text says" and "Interpretation", saved per verse in user.sqlite. Notes never appear inside the Bible text.
+* Search (the magnifying glass in the top bar, since 1.0.2): searches the chosen translation, or every text, through the offline `verse_fts` index. Words must all appear; put a phrase in "quotes"; end a word with * to match its beginning. Accents, Hebrew vowel points and capitals are ignored for matching only, using the same fold as `pipeline/build.py`. Typing Hebrew searches the Hebrew Old Testament and typing Greek searches the Greek texts. Matches are highlighted; tap a result to open that verse in the reader, in the text it was found in.
 * Larger and smaller text, settings remembered between runs, and a Sources and licences screen read from the database.
 
 ## Signing a release APK
 
-Release builds use the Flutter debug key unless you provide your own keystore. Do not commit a keystore or its passwords.
+Since 1.0.2 the published APKs are signed with the project's own release key (certificate `CN=Matthew Folson, O=Zagros Bible Study, C=GB`), not the Flutter debug key. The keystore and its passwords are never committed. GitHub Actions gets them from repository secrets (see `.github/workflows/release-builds.yml`).
 
-1. Create a keystore yourself and keep it somewhere that is not this repository (for example `~/keys/bible-study.jks`).
-2. In `android/key.properties` (that path is gitignored) put:
+To sign locally, put this in `android/key.properties` (gitignored):
 
-   ```
-   storePassword=...
-   keyPassword=...
-   keyAlias=...
-   storeFile=/absolute/path/to/bible-study.jks
-   ```
+```
+storePassword=...
+keyPassword=...
+keyAlias=...
+storeFile=/absolute/path/to/release.jks
+```
 
-3. `flutter build apk --release` will then sign with that key. If `android/key.properties` is missing, the build still succeeds but is signed with the debug key, which is fine for a private APK and not for the Play Store.
+`flutter build apk --release` then signs with that key. Without `key.properties` a release build now stops with an error, so a debug signed file cannot be published by mistake. For a private test build only, set `ZAGROS_ALLOW_DEBUG_RELEASE=1`.
+
+Android version codes: `versionCode = pubspec build number * 10 + ABI digit` (1 armeabi-v7a, 2 arm64-v8a, 4 x86_64, 9 universal). A newer build always has a higher code than any APK of an older build, so upgrades install whichever file a phone had. See `android/app/build.gradle.kts`.
 
 `key.properties`, `*.jks` and `*.keystore` are in `.gitignore`.
 

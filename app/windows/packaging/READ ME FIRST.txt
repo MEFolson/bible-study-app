@@ -1,0 +1,13 @@
+Zagros Bible Study for Windows
+
+1. Open bible_study.exe in this folder (double click it).
+
+2. If Windows shows a blue box saying "Windows protected your PC", click More info, then click Run anyway. This appears because the app is new, not because anything is wrong.
+
+3. Keep the whole BibleStudy folder together. The program needs the other files and the data folder next to it. To move it, move the whole folder.
+
+4. To make a desktop shortcut, right click bible_study.exe, choose Show more options, then Send to, then Desktop (create shortcut).
+
+5. The Microsoft Visual C++ runtime files the app needs (msvcp140.dll, vcruntime140.dll and vcruntime140_1.dll) are included in this folder. If Windows still says one of them is missing, install the Microsoft Visual C++ Redistributable (x64) from Microsoft: https://aka.ms/vs/17/release/vc_redist.x64.exe
+
+The app works fully offline. It never needs the internet.

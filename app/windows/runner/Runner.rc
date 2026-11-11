@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "org.biblestudy" "\0"
+            VALUE "CompanyName", "Matthew Folson" "\0"
             VALUE "FileDescription", "Zagros Bible Study" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "bible_study" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 org.biblestudy. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Matthew Folson" "\0"
             VALUE "OriginalFilename", "bible_study.exe" "\0"
             VALUE "ProductName", "Zagros Bible Study" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
