@@ -1,0 +1,61 @@
+# Manual check of a published Windows download: fetches bible_study_windows.zip from a release,
+# opens the app three times (reader, English search, Hebrew search) and keeps the screenshots.
+name: Windows smoke test of a release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag"
+        required: true
+        default: "v1.0.2"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Download and unzip the release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          gh release download "${{ inputs.tag }}" -R "${{ github.repository }}" -p bible_study_windows.zip -p SHA256SUMS.txt -D "$env:RUNNER_TEMP\dl"
+          $want = (Get-Content "$env:RUNNER_TEMP\dl\SHA256SUMS.txt" | Where-Object { $_ -match "bible_study_windows.zip" }).Split(" ")[0]
+          $got = (Get-FileHash "$env:RUNNER_TEMP\dl\bible_study_windows.zip" -Algorithm SHA256).Hash.ToLower()
+          "want $want"; "got  $got"
+          if ($want -ne $got) { throw "checksum mismatch" }
+          Expand-Archive "$env:RUNNER_TEMP\dl\bible_study_windows.zip" -DestinationPath "$env:RUNNER_TEMP\app"
+      - name: Open the app and save screenshots
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $exe = "$env:RUNNER_TEMP\app\BibleStudy\bible_study.exe"
+          $shots = "$env:RUNNER_TEMP\shots"
+          New-Item -ItemType Directory -Force -Path $shots | Out-Null
+          $udb = "$env:RUNNER_TEMP\smoke-user.sqlite"
+          $heb = -join [char[]](0x05D1, 0x05E8, 0x05D0, 0x05E9, 0x05D9, 0x05EA)
+          $runs = @(
+            @("windows_genesis_1", @("--goto=GEN.1.1", "--english=engbsb", "--original=tahot")),
+            @("windows_search_english", @("--goto=GEN.1.1", "--english=engbsb", "--search=beginning")),
+            @("windows_search_hebrew", @("--goto=GEN.1.1", "--english=engbsb", "--search=$heb"))
+          )
+          $failed = 0
+          foreach ($r in $runs) {
+            $png = Join-Path $shots ($r[0] + ".png")
+            $a = @("--user-db=$udb") + $r[1] + @("--screenshot=$png")
+            $p = Start-Process -FilePath $exe -PassThru -ArgumentList $a
+            if (-not $p.WaitForExit(120000)) { Stop-Process -Id $p.Id -Force; "$($r[0]): did not finish within 120 s"; $failed++; continue }
+            if (Test-Path $png) { "$($r[0]): exit $($p.ExitCode), screenshot $((Get-Item $png).Length) bytes" } else { "$($r[0]): exit $($p.ExitCode), no screenshot"; $failed++ }
+          }
+          if ($failed) { throw "$failed smoke runs failed" }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-smoke-screenshots
+          path: ${{ runner.temp }}/shots/
+          retention-days: 14

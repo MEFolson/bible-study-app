@@ -162,10 +162,11 @@ jobs:
           $shots = Join-Path $env:RUNNER_TEMP "shots"
           New-Item -ItemType Directory -Force -Path $shots | Out-Null
           $udb = Join-Path $env:RUNNER_TEMP "smoke-user.sqlite"
+          $heb = -join [char[]](0x05D1, 0x05E8, 0x05D0, 0x05E9, 0x05D9, 0x05EA)
           $runs = @(
             @("windows_genesis_1", @("--goto=GEN.1.1", "--english=engbsb", "--original=tahot")),
             @("windows_search_english", @("--goto=GEN.1.1", "--english=engbsb", "--search=beginning")),
-            @("windows_search_hebrew", @("--goto=GEN.1.1", "--english=engbsb", "--search=" + [char]0x05D1 + [char]0x05E8 + [char]0x05D0 + [char]0x05E9 + [char]0x05D9 + [char]0x05EA))
+            @("windows_search_hebrew", @("--goto=GEN.1.1", "--english=engbsb", "--search=$heb"))
           )
           $failed = 0
           foreach ($r in $runs) {
