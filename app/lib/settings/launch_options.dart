@@ -15,11 +15,12 @@ final screenshotKey = GlobalKey();
 ///   --screenshot=FILE    save a PNG of the window after loading, then quit
 ///   --pixel-ratio=2      scale for the screenshot
 ///   --dialog=books|credits  open a dialog first (for screenshots)
+///   --search=QUERY       open the search screen with QUERY (for screenshots)
 class LaunchOptions {
   String? db, userDb, gotoBook, english, original, panel, screenshot;
   int? gotoChapter, gotoVerse, word;
   double pixelRatio = 1;
-  String? dialog;
+  String? dialog, search;
   bool lxx = false;
 
   static LaunchOptions parse(List<String> args) {
@@ -54,6 +55,8 @@ class LaunchOptions {
           o.pixelRatio = double.tryParse(v) ?? 1;
         case '--dialog':
           o.dialog = v;
+        case '--search':
+          o.search = v;
       }
     }
     return o;

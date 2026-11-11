@@ -130,6 +130,11 @@ class _ReaderScreenState extends State<ReaderScreen>
         }
       });
     }
+    if (o.search != null) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _openSearch(initialQuery: o.search!),
+      );
+    }
     if (o.screenshot != null) _scheduleScreenshot(o.screenshot!);
   }
 
@@ -239,7 +244,7 @@ class _ReaderScreenState extends State<ReaderScreen>
             key: const Key('reader.search'),
             tooltip: 'Search',
             icon: const Icon(Icons.search),
-            onPressed: _openSearch,
+            onPressed: () => _openSearch(),
           ),
           const SizedBox(width: 4),
         ],
@@ -431,10 +436,14 @@ class _ReaderScreenState extends State<ReaderScreen>
 
   /// Opens the search screen and, when a verse is tapped, shows it in the reader in the text
   /// it was found in.
-  Future<void> _openSearch() async {
+  Future<void> _openSearch({String initialQuery = ''}) async {
     final hit = await Navigator.of(context).push<SearchHit>(
       MaterialPageRoute(
-        builder: (_) => SearchScreen(search: _search, initial: english),
+        builder: (_) => SearchScreen(
+          search: _search,
+          initial: english,
+          initialQuery: initialQuery,
+        ),
       ),
     );
     if (hit == null || !mounted) return;

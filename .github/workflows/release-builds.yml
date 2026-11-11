@@ -154,6 +154,36 @@ jobs:
           Set-Location (Join-Path $env:RUNNER_TEMP "pkg")
           7z a -tzip -mx=9 bible_study_windows.zip BibleStudy | Select-Object -Last 3
           (Get-FileHash bible_study_windows.zip -Algorithm SHA256).Hash.ToLower()
+      - name: Smoke test, open the app and save screenshots (reader and search)
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          $exe = Join-Path $env:RUNNER_TEMP "pkg\BibleStudy\bible_study.exe"
+          $shots = Join-Path $env:RUNNER_TEMP "shots"
+          New-Item -ItemType Directory -Force -Path $shots | Out-Null
+          $udb = Join-Path $env:RUNNER_TEMP "smoke-user.sqlite"
+          $runs = @(
+            @("windows_genesis_1", @("--goto=GEN.1.1", "--english=engbsb", "--original=tahot")),
+            @("windows_search_english", @("--goto=GEN.1.1", "--english=engbsb", "--search=beginning")),
+            @("windows_search_hebrew", @("--goto=GEN.1.1", "--english=engbsb", "--search=" + [char]0x05D1 + [char]0x05E8 + [char]0x05D0 + [char]0x05E9 + [char]0x05D9 + [char]0x05EA))
+          )
+          $failed = 0
+          foreach ($r in $runs) {
+            $png = Join-Path $shots ($r[0] + ".png")
+            $a = @("--user-db=$udb") + $r[1] + @("--screenshot=$png")
+            $p = Start-Process -FilePath $exe -PassThru -ArgumentList $a
+            if (-not $p.WaitForExit(120000)) { Stop-Process -Id $p.Id -Force; "$($r[0]): did not finish within 120 s"; $failed++; continue }
+            if (Test-Path $png) { "$($r[0]): exit $($p.ExitCode), screenshot $((Get-Item $png).Length) bytes" } else { "$($r[0]): exit $($p.ExitCode), no screenshot"; $failed++ }
+          }
+          Remove-Item -LiteralPath $udb -Force -ErrorAction SilentlyContinue
+          if ($failed) { throw "$failed smoke runs failed" }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        continue-on-error: true
+        with:
+          name: windows-smoke-screenshot
+          path: ${{ runner.temp }}/shots/
+          retention-days: 14
       - uses: actions/upload-artifact@v4
         with:
           name: windows

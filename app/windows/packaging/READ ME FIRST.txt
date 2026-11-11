@@ -8,6 +8,6 @@ Zagros Bible Study for Windows
 
 4. To make a desktop shortcut, right click bible_study.exe, choose Show more options, then Send to, then Desktop (create shortcut).
 
-5. The Microsoft Visual C++ runtime files the app needs (msvcp140.dll, vcruntime140.dll and vcruntime140_1.dll) are included in this folder. If Windows still says one of them is missing, install the Microsoft Visual C++ Redistributable (x64) from Microsoft: https://aka.ms/vs/17/release/vc_redist.x64.exe
+5. The Microsoft Visual C++ runtime files the app needs (msvcp140.dll, vcruntime140.dll and vcruntime140_1.dll) are included in this folder. If Windows still says one of them is missing, install the Microsoft Visual C++ Redistributable (x64) from Microsoft: https://aka.ms/vc14/vc_redist.x64.exe
 
 The app works fully offline. It never needs the internet.
