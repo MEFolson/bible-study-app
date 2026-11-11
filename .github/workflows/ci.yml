@@ -23,9 +23,12 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      # Pinned to the Flutter version the releases are built with. Newer stable releases
+      # deprecate package:flutter/material.dart, which the app still uses.
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.47.9
           cache: true
 
       - name: Flutter pub get
